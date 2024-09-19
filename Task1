@@ -1,0 +1,71 @@
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class GradeCalculator extends JFrame implements ActionListener {
+    private JTextField scoreInput;
+    private JButton calculateButton;
+    private JLabel resultLabel;
+
+    public GradeCalculator() {
+        // Set up the frame
+        setTitle("Grade Calculator");
+        setSize(300, 200);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(null);
+
+        // Create components
+        JLabel scoreLabel = new JLabel("Enter your score:");
+        scoreLabel.setBounds(50, 30, 150, 20);
+        
+        scoreInput = new JTextField();
+        scoreInput.setBounds(50, 60, 100, 25);
+        
+        calculateButton = new JButton("Calculate Grade");
+        calculateButton.setBounds(50, 100, 150, 30);
+        calculateButton.addActionListener(this);
+        
+        resultLabel = new JLabel("");
+        resultLabel.setBounds(50, 140, 200, 20);
+
+        // Add components to the frame
+        add(scoreLabel);
+        add(scoreInput);
+        add(calculateButton);
+        add(resultLabel);
+
+        // Make the frame visible
+        setVisible(true);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        // Get the input score
+        String inputText = scoreInput.getText();
+        try {
+            int score = Integer.parseInt(inputText);
+            String grade = calculateGrade(score);
+            resultLabel.setText("Your grade: " + grade);
+        } catch (NumberFormatException ex) {
+            resultLabel.setText("Please enter a valid number.");
+        }
+    }
+
+    private String calculateGrade(int score) {
+        if (score >= 90) {
+            return "A";
+        } else if (score >= 80) {
+            return "B";
+        } else if (score >= 70) {
+            return "C";
+        } else if (score >= 60) {
+            return "D";
+        } else {
+            return "F";
+        }
+    }
+
+    public static void main(String[] args) {
+        new GradeCalculator();
+    }
+}
